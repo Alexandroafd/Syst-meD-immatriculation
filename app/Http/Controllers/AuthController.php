@@ -84,4 +84,46 @@ class AuthController extends Controller
         Auth::logout();
         return to_route('login')->with('success', 'Déconnecté');
     }
+
+    public function profile ()
+    {
+        return view ('admin.users.profile');
+    }
+
+    public function doprofile ()
+    {
+
+    }
+
+    public function changePassword ()
+    {
+        return view ('admin.users.changePassword');
+    }
+
+    public function updatePassword (Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'new_password' => 'required|min:4',
+            'confirm_password' => 'required|same:new_password'
+        ]);
+
+        if ($validation->fails())
+        {
+            return redirect()->route('admin.changePassword')
+            ->withErrors($validation);
+        }
+
+        if (Hash::check($request->old_password, Auth::user()->password) == false)
+        {
+           session()->flash('error', 'L\'ancien mot de passe est incorret');
+           return back()->with('error', 'L\'ancien mot de passe est incorret');
+        }
+
+        $user = User::find(Auth::user()->id);
+        $user ->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Le mot de passe a été changé avec success');
+    }
 }

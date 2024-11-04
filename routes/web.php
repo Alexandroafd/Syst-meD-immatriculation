@@ -28,4 +28,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
         'property' => '[0-9]+',
         'slug' => '[0-9a-z\-]+' ]);
     Route::resource('/plaque', PlaqueController::class)->except(['show']);
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+    Route::get('/changePassword', [AuthController::class, 'changePassword'])->name('changePassword');
+    Route::post('/updatePassword', [AuthController::class, 'updatePassword'])->name('updatePassword');
 });

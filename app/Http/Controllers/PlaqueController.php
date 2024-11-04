@@ -14,7 +14,7 @@ class PlaqueController extends Controller
     public function index()
     {
         return view ('admin.plaques.index', [
-            'plaques' => Plaque::orderBy('created_at', 'desc')->paginate(25)
+            'plaques' => Plaque::orderBy('created_at', 'desc')->paginate(10)
         ]);
     }
 

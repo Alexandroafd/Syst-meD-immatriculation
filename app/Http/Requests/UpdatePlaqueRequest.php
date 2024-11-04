@@ -24,6 +24,7 @@ class UpdatePlaqueRequest extends FormRequest
         return [
             'name' => 'required|string',
             'prenom' => 'required|string',
+            'email' => 'email|unique:plaques,email',
             'age' => 'required|integer',
             'sexe' => 'required',
             'address' => 'required|string',
@@ -31,7 +32,7 @@ class UpdatePlaqueRequest extends FormRequest
             'profession' => 'required|string',
             'phone' => 'required|integer',
             'image' => 'mimes:png,jpg,jpeg,svg|max:2000',
-            'immatriculation' => 'required|string',
+            'immatriculation' => 'required|string|unique:plaques,immatriculation',
             'type' => 'required|string'
         ];
     }

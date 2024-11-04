@@ -1,10 +1,40 @@
-@extends("admin.admin")
+@extends('admin.admin')
 
 @section('title', 'Faire une recherche')
 
 @section('content')
 
-    <h1>@yield('title')</h1>
+        <div class="page-wrapper">
+        @include('shared.alert')
+            <!-- Page Content-->
+            <div class="page-content">
+                <div class="container-xxl">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row align-items-center">
+                                        <div class="col">
+                                            @forelse ($plaques as $plaque)
+                                                <div class="col-3 mb-4">
+                                                @include('admin.plaque.card')
+                                                </div>
+                                            @empty
+                                                <div class="col text-center">
+                                                    Aucun résultat ne correspond à votre recherche
+                                                </div>
+                                            @endforelse
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                    
+   {{--<h1>@yield('title')</h1>
 
         <form method="get" action="">
             <div class="row">
@@ -26,5 +56,5 @@
             <div class="my-4">
                 {{ $plaques->links() }}
             </div>
-        </div>
+        </div>--}}
 @endsection

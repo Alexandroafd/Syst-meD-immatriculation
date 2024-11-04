@@ -19,7 +19,7 @@ class SearchPlaqueController extends Controller
     }
 
     // On récupère les résultats paginés, triés par date de création
-    $plaques = $query->orderBy('created_at', 'desc')->paginate(25);
+    $plaques = $query->orderBy('created_at', 'desc')->paginate(16);
 
     // On renvoie la vue avec les résultats
     return view('admin.plaque.search', [
