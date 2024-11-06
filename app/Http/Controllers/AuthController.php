@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,19 +55,10 @@ class AuthController extends Controller
 
     public function dologin (LoginRequest $request)
     {
-        /*$credentials = $request->only('email', 'password');
-
-        $token = Auth::attempt($credentials);
-        if(!$token)
-        {
-            return redirect()->route('auth.login')->with('error', 'Identifiants incorrects');
-        }else {
-            $user = Auth::user();
-            return view ('admin.plaque.index', [
-                'user' => $user
-            ])->cookie('jwt', $token);
-            //return redirect()->intended(route('admin.plaque.index'))->cookie('jwt', $token);
-        }*/
+        /*$validation = Validator::make($request->all(), [
+            'email' => 'required|email|max:150',
+            'password' => 'required|string|min:4'
+        ]);*/
 
         $credentials = $request->validated();
         if(Auth::attempt($credentials))
@@ -87,13 +79,32 @@ class AuthController extends Controller
 
     public function profile ()
     {
-        return view ('admin.users.profile');
+        $id = Auth::user()->id;
+        $user = User::where('id', $id)->first();
+        return view ('admin.users.profile', [
+            'user' => $user
+        ]);
     }
 
-    public function doprofile ()
-    {
+    public function doprofile(ProfileRequest $request)
+{
+    $id = Auth::user()->id;
+    $user = User::find($id);
 
+    $data = $request->only(['name', 'email', 'phone', 'profession', 'state', 'firstname']);
+
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('uploads/images'), $filename);
+        $data['image'] = 'uploads/images/' . $filename;
     }
+
+    $user->update($data);
+
+    return back()->with('success', 'Profil modifié avec succès');
+}
+
 
     public function changePassword ()
     {

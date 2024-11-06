@@ -13,10 +13,10 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="row align-items-center">
-                                        <div class="col">                      
-                                            <h4 class="card-title">Popular Products</h4>                      
+                                        <div class="col">
+                                            <h4 class="card-title">Popular Products</h4>
                                         </div><!--end col-->
-                                    </div>  <!--end row-->                                  
+                                    </div>  <!--end row-->
                                 </div><!--end card-header-->
                                 <div class="card-body pt-0">
                                     <div class="table-responsive">
@@ -32,22 +32,22 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($plaques as $plaque)
-                                                    <tr>                                                        
+                                                    <tr>
                                                         <td>
                                                             <div class="d-flex align-items-center">
                                                                 @if ($plaque->image)
                                                                     <!--<img src="assets/images/products/01.png" height="40" class="me-3 align-self-center rounded" alt="...">-->
                                                                     <img src="{{ asset('profil_pic/' . $plaque->image) }}" height="40" class="me-3 align-self-center rounded" alt="...">
                                                                 @else
-                                                                    <p>Photo</p>                                                                
+                                                                    <p>Photo</p>
                                                                 @endif
-                                                                <div class="flex-grow-1 text-truncate"> 
+                                                                <div class="flex-grow-1 text-truncate">
                                                                     <h6 class="m-0"> {{$plaque->name}} </h6>
-                                                                    <a href="#" class="fs-12 text-primary">ID: {{$plaque->id}}</a>                                                                                           
+                                                                    <a href="#" class="fs-12 text-primary">ID: {{$plaque->id}}</a>
                                                                 </div><!--end media body-->
                                                             </div>
                                                         </td>
-                                                        <td> {{$plaque->prenom}} </td>                                   
+                                                        <td> {{$plaque->prenom}} </td>
                                                         <td>
                                                             @if($plaque->type == "Moto")
                                                                 <span class="badge bg-primary-subtle text-primary px-2">Moto</span>
@@ -56,29 +56,29 @@
                                                             @endif
                                                         </td>
                                                         <td> {{$plaque->immatriculation}} </td>
-                                                        <td>  
-                                                            <a href="{{route('admin.plaque.edit', $plaque)}}"><i class="las la-pen text-secondary fs-18"></i></a> 
+                                                        <td>
+                                                            <a href="{{route('admin.plaque.edit', $plaque)}}"><i class="las la-pen text-secondary fs-18"></i></a>
                                                             <form action="{{ route('admin.plaque.destroy', $plaque) }}" method="POST" style="display:inline;">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" style="border: none; background: none; cursor: pointer;" onclick="return confirm('Voulez-vous vraiment supprimer cet enregistrement ?')">
                                                                     <i class="las la-trash-alt text-secondary fs-18"></i>
                                                                 </button>
-                                                            </form>                                                    
+                                                            </form>
                                                             {{--<a href="{{route('admin.plaque.destroy', $plaque)}}"><i class="las la-trash-alt text-secondary fs-18"></i></a>--}}
                                                         </td>
-                                                    </tr><!--end tr-->     
-                                                @endforeach                           
+                                                    </tr><!--end tr-->
+                                                @endforeach
                                             </tbody>
-                                        </table> <!--end table--> 
-                                        {{ $plaques->links() }}                                              
+                                        </table> <!--end table-->
+                                        {{ $plaques->links() }}
                                     </div><!--end /div-->
-                                </div><!--end card-body--> 
-                            </div><!--end card--> 
-                        </div> <!--end col-->                               
-                    </div><!--end row-->                    
+                                </div><!--end card-body-->
+                            </div><!--end card-->
+                        </div> <!--end col-->
+                    </div><!--end row-->
                 </div><!-- container -->
-                
+
                 <!--Start Rightbar-->
                 <!--Start Rightbar/offcanvas-->
 
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                 </footer>
-                
+
                 <!--end footer-->
             </div>
             <!-- end page content -->
